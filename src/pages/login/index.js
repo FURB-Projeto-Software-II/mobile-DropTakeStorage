@@ -16,11 +16,6 @@ class Login extends Component {
         super(props)
     }
 
-    async onClickLogin(){
-        const {email, password} = this.props
-        this.props.executeLogin({email, password});
-    }
- 
     render() {
         
         const {emailChange, passwordChange, executeLogin} = this.props
@@ -47,11 +42,11 @@ class Login extends Component {
                     onChangeText={text => passwordChange(text)}
                 />
             </Layout>
-            <Button onPress={() => this.onClickLogin()} style={styles.button}>
+            <Button onPress={() => this.props.executeLogin()} style={styles.button}>
                 LOGIN
             </Button>
 
-            <Button onPress={() => Actions.configs()} style={styles.inverseButton}>
+            <Button onPress={() => Actions.signup()} style={styles.inverseButton}>
                 <Text style={styles.inverseText}>SIGN IN</Text>
             </Button>
         </Layout>

@@ -1,33 +1,33 @@
 import api from '../../server/api'
 
-export const nomeChange = event => ({
+export const nomeChange = text => ({
     type: 'NOME_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
-export const dataNascimentoChange = event => ({
+export const dataNascimentoChange = text => ({
     type: 'DATA_NASCIMENTO_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
-export const emailChange = event => ({
+export const emailChange = text => ({
     type: 'EMAIL_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
-export const confirmaEmailChange = event => ({
+export const confirmaEmailChange = text => ({
     type: 'CONFIRMA_EMAIL_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
-export const senhaChange = event => ({
+export const senhaChange = text => ({
     type: 'SENHA_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
-export const confirmarSenhaChange = event => ({
+export const confirmarSenhaChange = text => ({
     type: 'CONFIRMA_SENHA_VALUE_CHANGE',
-    payload: event.target.value
+    payload: text
 })
 
 export const validateSignup = () => {
@@ -58,7 +58,7 @@ export const validateSignup = () => {
 
 export const executeSignup = () => {
     return (dispatch, getState) => {
-        api.post('/auth/register', {
+        api.post('/auth/storage/register', {
             nome: getState().signup.nome,
             email: getState().signup.email,
             password: getState().signup.senha

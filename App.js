@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 import { Router, Scene } from 'react-native-router-flux';
 
 import Login from './src/pages/login';
-import Signin from './src/pages/sigin';
+import SignUp from './src/pages/sigin';
 import Home from './src/pages/home'
 import OrderInfo from './src/pages/order-info'
 import Configs  from './src/pages/configs'
@@ -33,8 +33,8 @@ export default function App() {
               initial
             />
             <Scene 
-              key="signin"
-              component={Signin}
+              key="signup"
+              component={SignUp}
               title="Sign in"
             />
             <Scene 

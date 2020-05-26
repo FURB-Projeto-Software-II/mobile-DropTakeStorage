@@ -4,13 +4,13 @@ import { Layout, Input, Button } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup } from './actions'
+import { nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup } from './actions'
 
-class Signin extends Component {
+class SignUp extends Component {
 
     render() {
 
-        const { nome, dataNascimento, email, confirmaEmail, senha, confirmarSenha } = this.props
+        const { nome, dataNascimento, email, confirmaEmail, senha, confirmarSenha, executeSignup } = this.props
 
         return (
             <Layout style={styles.container}>
@@ -19,7 +19,7 @@ class Signin extends Component {
                         label="Nome"
                         placeholder='Nome'
                         value={nome}
-                        onChange={nomeChange}
+                        onChangeText={text => this.props.nomeChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -27,7 +27,7 @@ class Signin extends Component {
                         label="Data de Nascimento"
                         placeholder='Data de Nascimento'
                         value={dataNascimento}
-                        onChange={dataNascimentoChange}
+                        onChangeText={text => this.props.dataNascimentoChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -35,7 +35,7 @@ class Signin extends Component {
                         label="Email"
                         placeholder='Email'
                         value={email}
-                        onChange={emailChange}
+                        onChangeText={text => this.props.emailChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -43,7 +43,7 @@ class Signin extends Component {
                         label="Confirme o Email"
                         placeholder='Confirme o Email'
                         value={confirmaEmail}
-                        onChange={confirmaEmailChange}
+                        onChangeText={text => this.props.confirmaEmailChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -52,7 +52,7 @@ class Signin extends Component {
                         placeholder='Senha'
                         value={senha}
                         type="password"
-                        onChange={senhaChange}
+                        onChangeText={text => this.props.senhaChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -61,10 +61,10 @@ class Signin extends Component {
                         placeholder='Confirmar a Senha'
                         value={confirmarSenha}
                         type="password"
-                        onChange={confirmarSenhaChange}
+                        onChange={text => this.props.confirmarSenhaChange(text)}
                     />
                 </Layout>
-                <Button onPress={validateSignup} style={styles.button}>
+                <Button onPress={executeSignup} style={styles.button}>
                     CADASTRAR
                 </Button>
             </Layout>
@@ -83,9 +83,9 @@ const mapStateToProps = state => ({
     confirmarSenha: state.signup.confirmarSenha
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 
 const styles = StyleSheet.create({
     container: {

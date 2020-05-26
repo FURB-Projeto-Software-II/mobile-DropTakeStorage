@@ -1,5 +1,6 @@
 import api from '../../server/api'
 import { Actions } from 'react-native-router-flux'
+import { Alert } from 'react-native'
 
 export const emailChange = text => ({
     type: 'EMAIL_VALUE_CHANGE',
@@ -11,20 +12,29 @@ export const passwordChange = text => ({
     payload: text
 })
 
-export const executeLogin = ({email, password}) => {
-    return async (dispatch) => {
-        dispatch({type: 'EXECUTE_LOGIN'});
-        await api.post('auth/login',{
+export const executeLogin = () => {
+    return (dispatch, getState) => {
+
+        const email = getState().login.email;
+        const password = getState().login.password;
+
+        
+        api.post('auth/login',{
             email: email,
             password: password
         })
-        .then(function (response) {
-            if (response.data.auth) {
+        .then(result => {
+            if (result.data.auth) {
                 Actions.home();
+
+                return dispatch({
+                    type: 'EXECUTE_LOGIN',
+                    payload: result.data.token
+                });
             }
         })
         .catch(function (error) {
-            return error
+            Alert.alert(error.response.data)
         });
     }
 }
