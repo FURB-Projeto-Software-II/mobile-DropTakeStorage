@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
-import { Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Input, Button } from '@ui-kitten/components';
@@ -46,8 +46,8 @@ class Login extends Component {
                 LOGIN
             </Button>
 
-            <Button onPress={() => Actions.signup()} style={styles.inverseButton}>
-                <Text style={styles.inverseText}>SIGN IN</Text>
+            <Button onPress={() => Actions.storagesCrud()} style={styles.inverseButton}>
+                <Text style={styles.inverseText}>SIGN UP</Text>
             </Button>
         </Layout>
         )
@@ -56,7 +56,8 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
     email: state.login.email, 
-    password: state.login.password
+    password: state.login.password,
+    token: state.login.token,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ emailChange, passwordChange, executeLogin}, dispatch)

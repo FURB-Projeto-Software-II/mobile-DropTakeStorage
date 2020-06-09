@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     nome: '',
-    dataNascimento: '',
+    cpf: '',
     email: '',
     confirmaEmail: '',
     senha: '',
@@ -11,8 +11,8 @@ export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case 'NOME_VALUE_CHANGE':
             return {...state, nome: action.payload}
-        case 'DATA_NASCIMENTO_VALUE_CHANGE':
-            return {...state, dataNascimento: action.payload}
+        case 'CPF_VALUE_CHANGE':
+            return {...state, cpf: action.payload}
         case 'EMAIL_VALUE_CHANGE':
             return {...state, email: action.payload}
         case 'CONFIRMA_EMAIL_VALUE_CHANGE':

@@ -3,8 +3,16 @@ import { StyleSheet, Image } from 'react-native';
 import { Layout, Text, Divider } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux'
+
+import { showOrderItem } from './actions'
 
 class OrderInfo extends Component {
+
+    componentDidMount() {
+        this.props.showOrderItem(this.props._id);
+    }
+
 
     render() {
 
@@ -48,7 +56,7 @@ class OrderInfo extends Component {
 const mapStateToProps = state => ({
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({  }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ showOrderItem }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderInfo)
 

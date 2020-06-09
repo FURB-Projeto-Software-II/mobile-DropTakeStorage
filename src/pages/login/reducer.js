@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
     email: '',
-    password: ''
+    password: '',
+    token: '',
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -11,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
         case 'PASSWORD_VALUE_CHANGE':
             return {...state, password: action.payload}
         case 'EXECUTE_LOGIN':
-            return {...state}
+            return {...state, token: action.payload}
             break;
         default:
             return state

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const { Navigator, Screen } = createBottomTabNavigator();
+import { loadOrders } from './actions'
 
 const data = new Array(8).fill({
     title: 'Item',
@@ -44,35 +45,47 @@ const TabNavigator = () => (
 
 class Home extends Component {
 
+    componentDidMount() {
+        this.props.loadOrders()
+    }
+
     renderItem = ({ item, index }) => (
         <ListItem
-          title={`${item.title} ${index + 1}`}
-          description={`${item.description} ${index + 1}`}
-          onPress={() => Actions.orderInfo()}
+          title={`${item.description}`}
+          description=''
+          onPress={() => Actions.orderInfo({_id: item._id})}
         />
     );
 
     render() {
+
+        const { list } = this.props;
+
         return(
             <Layout style={styles.containerGeral}>
                 <List
                     style={styles.container}
-                    data={data}
+                    data={list}
                     ItemSeparatorComponent={Divider}
                     renderItem={this.renderItem}
                 />
-                <NavigationContainer>
-                    <TabNavigator/>
-                </NavigationContainer>
+
+                <Layout>
+                    <NavigationContainer>
+                        <TabNavigator/>
+                    </NavigationContainer>
+                </Layout>
             </Layout>
+            
         );
     }
 }
 
 const mapStateToProps = state => ({
+    list: state.home.list
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({  }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ loadOrders }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
 

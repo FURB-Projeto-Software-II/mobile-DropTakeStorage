@@ -4,7 +4,7 @@ import signupReducer from './pages/sigin/reducer';
 import homeReducer from './pages/home/reducer';
 import orderInfoReducer from './pages/order-info/reducer';
 import configsReducer from './pages/configs/reducer';
-import storageCrudReducer from './pages/storages-crud';
+import storageCrudReducer from './pages/storages-crud/reducer';
 import storages from './pages/storages';
 
 const rootReducer = combineReducers({

@@ -4,13 +4,13 @@ import { Layout, Input, Button } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup } from './actions'
+import { nomeChange, cpfChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup } from './actions'
 
 class SignUp extends Component {
 
     render() {
 
-        const { nome, dataNascimento, email, confirmaEmail, senha, confirmarSenha, executeSignup } = this.props
+        const { nome, cpf, email, confirmaEmail, senha, confirmarSenha, executeSignup } = this.props
 
         return (
             <Layout style={styles.container}>
@@ -24,10 +24,10 @@ class SignUp extends Component {
                 </Layout>
                 <Layout level='4' style={styles.layout}>
                     <Input
-                        label="Data de Nascimento"
-                        placeholder='Data de Nascimento'
-                        value={dataNascimento}
-                        onChangeText={text => this.props.dataNascimentoChange(text)}
+                        label="CPF"
+                        placeholder='CPF'
+                        value={cpf}
+                        onChangeText={text => this.props.cpfChange(text)}
                     />
                 </Layout>
                 <Layout level='4' style={styles.layout}>
@@ -61,7 +61,7 @@ class SignUp extends Component {
                         placeholder='Confirmar a Senha'
                         value={confirmarSenha}
                         type="password"
-                        onChange={text => this.props.confirmarSenhaChange(text)}
+                        onChangeText={text => this.props.confirmarSenhaChange(text)}
                     />
                 </Layout>
                 <Button onPress={executeSignup} style={styles.button}>
@@ -76,14 +76,14 @@ class SignUp extends Component {
 
 const mapStateToProps = state => ({
     nome: state.signup.nome,
-    dataNascimento: state.signup.dataNascimento,
+    cpf: state.signup.cpf,
     email: state.signup.email,
     confirmaEmail: state.signup.confirmaEmail,
     senha: state.signup.senha,
     confirmarSenha: state.signup.confirmarSenha
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ nomeChange, dataNascimentoChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ nomeChange, cpfChange, emailChange, confirmaEmailChange, senhaChange, confirmarSenhaChange, validateSignup, executeSignup }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 

@@ -23,14 +23,18 @@ export const executeLogin = () => {
             email: email,
             password: password
         })
-        .then(result => {
+        .then(async result => {
             if (result.data.auth) {
-                Actions.home();
-
-                return dispatch({
+                
+                console.log('------------------------------------------------- TOKEN')
+                console.log(result.data.token)
+                
+                dispatch({
                     type: 'EXECUTE_LOGIN',
                     payload: result.data.token
                 });
+                
+                return Actions.home();
             }
         })
         .catch(function (error) {

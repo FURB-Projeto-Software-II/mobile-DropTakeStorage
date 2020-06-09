@@ -1,12 +1,13 @@
 import api from '../../server/api'
+import { Actions } from 'react-native-router-flux';
 
 export const nomeChange = text => ({
     type: 'NOME_VALUE_CHANGE',
     payload: text
 })
 
-export const dataNascimentoChange = text => ({
-    type: 'DATA_NASCIMENTO_VALUE_CHANGE',
+export const cpfChange = text => ({
+    type: 'CPF_VALUE_CHANGE',
     payload: text
 })
 
@@ -60,12 +61,20 @@ export const executeSignup = () => {
     return (dispatch, getState) => {
         api.post('/auth/storage/register', {
             nome: getState().signup.nome,
+            cpf: getState().signup.cpf,
             email: getState().signup.email,
             password: getState().signup.senha
         })
-        .then(resp => dispatch({
-            type: 'SIGN_UP_EXECUTED',
-            payload: resp.data
-        }))
+        .then(resp => {
+            Actions.login();
+
+            return dispatch({
+                type: 'SIGN_UP_EXECUTED',
+                payload: resp.data
+            });
+        })
+        .catch(function (error) {
+            Alert.alert(error.response.data)
+        });
     }
 }
