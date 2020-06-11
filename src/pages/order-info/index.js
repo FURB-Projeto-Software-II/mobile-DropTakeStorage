@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { Layout, Text, Divider } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,11 +16,13 @@ class OrderInfo extends Component {
 
     render() {
 
+        const { order } = this.props;
+
         return (
             <Layout style={styles.container}>
                 <Text category="label" style={styles.title}>Informações do Produto</Text>
-                <Text>Descrição: TV Samsumg</Text>
-                <Text>Loja: Americanas</Text>
+                <Text>Descrição: {order.description}</Text>
+                {/* <Text>Loja: Americanas</Text> */}
 
                 <Divider style={styles.divider}/>
 
@@ -30,12 +32,23 @@ class OrderInfo extends Component {
 
                 <Divider style={styles.divider}/>
 
+                
+
                 <Text category="label" style={styles.title}>Informações da Entrega</Text>
-                <Text>Responsável Storage: José Affonso</Text>
-                <Text>Endereço Storage: Rua Arthur Schreiber, 51 - Velha, Blumenau - SC</Text>
-                <Text>Contato Storage: (47)99685-4567</Text>
-                <Text>Entrega em sua casa: SIM</Text>
-                <Text>Endereço de Entrega: Rua Antunes Pereira, 67 - Velha, Blumenau - SC</Text>
+                
+                { order.adressInfo == null 
+                    ? <Text>Entrega em sua casa: NÀO</Text> 
+                    : (
+                        <>
+                            <Text>Entrega em sua casa: SIM</Text>
+                            <Text>Cidade: {order.adressInfo.city}</Text>
+                            <Text>Bairro: {order.adressInfo.neighborhood}</Text>
+                            <Text>Endereço de Entrega: {order.adressInfo.street}</Text>
+                            <Text>Número: {order.adressInfo.number}</Text>
+                            <Text>CEP: {order.adressInfo.zipcode}</Text>
+                        </>
+                    )
+                }
                 
                 <Divider style={styles.divider}/>
 
@@ -54,6 +67,7 @@ class OrderInfo extends Component {
 }
 
 const mapStateToProps = state => ({
+    order: state.orderInfo.order
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({ showOrderItem }, dispatch)

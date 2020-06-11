@@ -7,41 +7,12 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const { Navigator, Screen } = createBottomTabNavigator();
 import { loadOrders } from './actions'
 
 const data = new Array(8).fill({
     title: 'Item',
     description: 'Description for Item',
   });
-
-const UsersScreen = () => (
-    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text category='h1'>USERS</Text>
-    </Layout>
-);
-  
-const OrdersScreen = () => (
-    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text category='h1'>ORDERS</Text>
-    </Layout>
-);
-
-const BottomTabBar = ({ navigation, state }) => (
-    <BottomNavigation
-      selectedIndex={state.index}
-      onSelect={index => navigation.navigate(state.routeNames[index])}>
-      <BottomNavigationTab title='USERS'/>
-      <BottomNavigationTab title='ORDERS'/>
-    </BottomNavigation>
-  );
-
-const TabNavigator = () => (
-    <Navigator tabBar={props => <BottomTabBar {...props} />}>
-        <Screen name='Users' component={UsersScreen}/>
-        <Screen name='Orders' component={OrdersScreen}/>
-    </Navigator>
-);
 
 class Home extends Component {
 
@@ -69,12 +40,6 @@ class Home extends Component {
                     ItemSeparatorComponent={Divider}
                     renderItem={this.renderItem}
                 />
-
-                <Layout>
-                    <NavigationContainer>
-                        <TabNavigator/>
-                    </NavigationContainer>
-                </Layout>
             </Layout>
             
         );

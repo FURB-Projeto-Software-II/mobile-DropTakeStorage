@@ -46,7 +46,7 @@ class Login extends Component {
                 LOGIN
             </Button>
 
-            <Button onPress={() => Actions.storagesCrud()} style={styles.inverseButton}>
+            <Button onPress={() => Actions.signup()} style={styles.inverseButton}>
                 <Text style={styles.inverseText}>SIGN UP</Text>
             </Button>
         </Layout>
