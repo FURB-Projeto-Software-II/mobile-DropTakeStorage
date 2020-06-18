@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native';
-import { Layout, List, Divider, ListItem, BottomNavigation, BottomNavigationTab, Text } from '@ui-kitten/components';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Layout, List, Divider, ListItem } from '@ui-kitten/components';
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

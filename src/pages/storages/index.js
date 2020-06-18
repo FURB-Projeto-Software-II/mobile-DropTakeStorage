@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux' 
-import { StyleSheet } from 'react-native'
-import { Layout, Button,ListItem, List, Divider } from '@ui-kitten/components'
-import { Actions } from 'react-native-router-flux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StyleSheet } from 'react-native';
+import { Layout, Button, ListItem, List, Divider } from '@ui-kitten/components';
+import { Actions } from 'react-native-router-flux';
+
+import { loadStorages } from './actions'
 
 const data = new Array(15).fill({
     title: 'Item',
@@ -12,33 +14,37 @@ const data = new Array(15).fill({
 
 class Storages extends Component {
 
-    constructor(props){
-        super(props)
+    componentDidMount(){
+        this.props.loadStorages();
     }
 
     renderItem = ({ item, index }) => (
         <ListItem
-          title={`${item.title} ${index + 1}`}
-          description={`${item.description} ${index + 1}`}
+          title={`${item.street}, N ${item.number}`}
+          description={`${item.state}, ${item.city}`}
+          onPress={() => Actions.storagesCrud()}
         />
     );
 
     render() {
+
+        const { list } = this.props;
+
         return (
            <Layout>
                <Layout style={styles.listAddressBox}>
                     <List
                         style={styles.container}
-                        data={data}
+                        data={list}
                         ItemSeparatorComponent={Divider}
                         renderItem={this.renderItem}
                     />
                </Layout>
-               <Layout style={styles.newAddressBox}>
+               {/* <Layout style={styles.newAddressBox}>
                     <Button style={styles.button} onPress={() => Actions.storagesCrud()}>
                         NOVO ENDEREÇO
                     </Button>
-               </Layout>
+               </Layout> */}
            </Layout> 
         )
     }
@@ -46,10 +52,10 @@ class Storages extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    list : state.storages.list
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({  }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ loadStorages }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Storages)
 

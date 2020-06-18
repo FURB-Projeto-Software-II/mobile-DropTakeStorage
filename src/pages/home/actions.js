@@ -13,8 +13,6 @@ export const loadOrders = () => {
         api.get('/order', configApi)
         .then(result => {
 
-            console.log(result);
-
             return dispatch({
                 type: 'ORDER_LIST_LOAD',
                 payload: result.data

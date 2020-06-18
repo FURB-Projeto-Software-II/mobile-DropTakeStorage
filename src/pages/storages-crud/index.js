@@ -5,11 +5,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
 
-import { zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar } from './actions'
+import { zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage } from './actions'
 
 class StorageCrud extends Component {
 
+    componentDidMount() {
+        this.props.showStorage();
+    }
+
     render() {
+
         return (
             <Layout>
                 <Layout style={[styles.layout, styles.marginTop]}>
@@ -17,39 +22,39 @@ class StorageCrud extends Component {
                         label="CEP"
                         placeholder='CEP'
                         value={this.props.zipcode}
-                        onChangeText={zipcodeChange}
+                        onChangeText={text => this.props.zipcodeChange(text)}
                     />
                 </Layout>
 
                 <Layout style={styles.layout}>
-                    <Select selectedIndex={this.props.estado} onSelect={estadoChange} label="Estado">
-                        <SelectItem title='Acre'/>
-                        <SelectItem title='Alagoas'/>
-                        <SelectItem title='Amapá'/>
-                        <SelectItem title='Amazonas'/>
-                        <SelectItem title='Bahia'/>
-                        <SelectItem title='Ceará'/>
-                        <SelectItem title='Distrito Federal'/>
-                        <SelectItem title='Espírito Santo'/>
-                        <SelectItem title='Goiás'/>
-                        <SelectItem title='Maranhão'/>
-                        <SelectItem title='Mato Grosso'/>
-                        <SelectItem title='Mato Grosso do Sul'/>
-                        <SelectItem title='Minas Gerais'/>
-                        <SelectItem title='Paraná'/>
-                        <SelectItem title='Paraíba'/>
-                        <SelectItem title='Pará'/>
-                        <SelectItem title='Pernambuco'/>
-                        <SelectItem title='Piauí'/>
-                        <SelectItem title='Rio de Janeiro'/>
-                        <SelectItem title='Rio Grande do Norte'/>
-                        <SelectItem title='Rio Grande do Sul'/>
-                        <SelectItem title='Rondônia'/>
-                        <SelectItem title='Roraima'/>
-                        <SelectItem title='Santa Catarina'/>
-                        <SelectItem title='Sergipe'/>
-                        <SelectItem title='São Paulo'/>
-                        <SelectItem title='Tocantins'/>
+                    <Select selectedIndex={this.props.state} onSelect={title => this.props.estadoChange(title)} label="Estado">
+                    <SelectItem title='Acre' value="AC"/>
+                        <SelectItem title='Alagoas' value="AL"/>
+                        <SelectItem title='Amapá' value="AP"/>
+                        <SelectItem title='Amazonas' value="AM"/>
+                        <SelectItem title='Bahia' value="BA"/>
+                        <SelectItem title='Ceará' value="CE"/>
+                        <SelectItem title='Distrito Federal' value="DF"/>
+                        <SelectItem title='Espírito Santo' value="ES"/>
+                        <SelectItem title='Goiás' value="GO"/>
+                        <SelectItem title='Maranhão' value="MA"/>
+                        <SelectItem title='Mato Grosso' value="MT"/>
+                        <SelectItem title='Mato Grosso do Sul' value="MS"/>
+                        <SelectItem title='Minas Gerais' value="MG"/>
+                        <SelectItem title='Paraná' value="PR"/>
+                        <SelectItem title='Paraíba' value="PB"/>
+                        <SelectItem title='Pará' value="PA"/>
+                        <SelectItem title='Pernambuco' value="PE"/>
+                        <SelectItem title='Piauí' value="PI"/>
+                        <SelectItem title='Rio de Janeiro' value="RJ"/>
+                        <SelectItem title='Rio Grande do Norte' value="RN"/>
+                        <SelectItem title='Rio Grande do Sul' value="RS"/>
+                        <SelectItem title='Rondônia' value="RO"/>
+                        <SelectItem title='Roraima' value="RR"/>
+                        <SelectItem title='Santa Catarina' value="SC"/>
+                        <SelectItem title='Sergipe' value="SE"/>
+                        <SelectItem title='São Paulo' value="SP"/>
+                        <SelectItem title='Tocantins' value="TO"/>
                     </Select>
                 </Layout>
 
@@ -57,8 +62,8 @@ class StorageCrud extends Component {
                     <Input
                         label="Cidade"
                         placeholder='Cidade'
-                        value={this.props.cidade}
-                        onChangeText={cidadeChange}
+                        value={this.props.city}
+                        onChangeText={text => this.props.cidadeChange(text)}
                     />
                 </Layout>
 
@@ -67,7 +72,7 @@ class StorageCrud extends Component {
                         label="Bairro"
                         placeholder='Bairro'
                         value={this.props.neighborhood}
-                        onChangeText={neighborhoodChange}
+                        onChangeText={text => this.props.neighborhoodChange(text)}
                     />
                 </Layout>
 
@@ -76,7 +81,7 @@ class StorageCrud extends Component {
                         label="Rua"
                         placeholder='Rua'
                         value={this.props.street}
-                        onChangeText={streetChange}
+                        onChangeText={text => this.props.streetChange(text)}
                     />
                 </Layout>
 
@@ -85,7 +90,7 @@ class StorageCrud extends Component {
                         label="Número"
                         placeholder='Número'
                         value={this.props.number}
-                        onChangeText={numberChange}
+                        onChangeText={text => this.props.numberChange(text)}
                     />
                 </Layout>
 
@@ -94,12 +99,12 @@ class StorageCrud extends Component {
                         label="Complemento"
                         placeholder='Complemento'
                         value={this.props.complement}
-                        onChangeText={complementChange}
+                        onChangeText={text => this.props.complementChange(text)}
                     />
                 </Layout>
 
-                <Button onPress={executeCadastrar} style={styles.button} >
-                    CADASTRAR
+                <Button onPress={() => this.props.changeStorage()} style={styles.button} >
+                    Salvar
                 </Button>
             </Layout>
         )
@@ -109,16 +114,17 @@ class StorageCrud extends Component {
 
 
 const mapStateToProps = state => ({
-    zipcode: state.zipcode,
-    estado: state.estado,
-    cidade: state.cidade,
-    neighborhood: state.neighborhood,
-    street: state.street,
-    number: state.number,
-    complement: state.complement
+    zipcode: state.storageCrud.zipcode,
+    state: state.storageCrud.state,
+    city: state.storageCrud.city,
+    neighborhood: state.storageCrud.neighborhood,
+    street: state.storageCrud.street,
+    number: state.storageCrud.number,
+    complement: state.storageCrud.complement,
+    _id: state.storageCrud._id
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage }, dispatch)
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(StorageCrud)

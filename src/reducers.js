@@ -5,7 +5,7 @@ import homeReducer from './pages/home/reducer';
 import orderInfoReducer from './pages/order-info/reducer';
 import configsReducer from './pages/configs/reducer';
 import storageCrudReducer from './pages/storages-crud/reducer';
-import storages from './pages/storages';
+import storages from './pages/storages/reducer';
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
     orderInfo: orderInfoReducer,
     configs: configsReducer,
     storageCrud: storageCrudReducer,
+    storages: storages,
 });
 
 export default rootReducer;
