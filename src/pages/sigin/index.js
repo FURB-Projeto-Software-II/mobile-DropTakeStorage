@@ -48,6 +48,22 @@ class SignUp extends Component {
                 </Layout>
                 <Layout level='4' style={styles.layout}>
                     <Input
+                        label="Latitude"
+                        placeholder='Latitude'
+                        value={confirmarSenha}
+                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                    />
+                </Layout>
+                <Layout level='4' style={styles.layout}>
+                    <Input
+                        label="Longitude"
+                        placeholder='Longitude'
+                        value={confirmarSenha}
+                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                    />
+                </Layout>
+                <Layout level='4' style={styles.layout}>
+                    <Input
                         label="Senha"
                         placeholder='Senha'
                         value={senha}

@@ -6,6 +6,7 @@ import orderInfoReducer from './pages/order-info/reducer';
 import configsReducer from './pages/configs/reducer';
 import storageCrudReducer from './pages/storages-crud/reducer';
 import storages from './pages/storages/reducer';
+import readerQRCode from './pages/readerQRCode/reducer';
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     configs: configsReducer,
     storageCrud: storageCrudReducer,
     storages: storages,
+    readerQRCode: readerQRCode,
 });
 
 export default rootReducer;

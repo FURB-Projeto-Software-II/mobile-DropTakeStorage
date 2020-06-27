@@ -15,6 +15,7 @@ import OrderInfo from './src/pages/order-info'
 import Configs  from './src/pages/configs'
 import Storages from './src/pages/storages'
 import StoragesCrud from './src/pages/storages-crud'
+import ReaderQRCode from './src/pages/readerQRCode'
 import reducers from './src/reducers';
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -110,6 +111,15 @@ export default function App() {
           <Scene 
             key="orderInfo"
             component={OrderInfo}
+            title="Informções do pedido"
+            hideTabBar={true}
+            {...sceneConfig}
+            showLabel={false}
+          />
+
+          <Scene 
+            key="readerQRCode"
+            component={ReaderQRCode}
             title="Informções do pedido"
             hideTabBar={true}
             {...sceneConfig}

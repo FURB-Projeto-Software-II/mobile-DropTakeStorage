@@ -103,6 +103,23 @@ class StorageCrud extends Component {
                     />
                 </Layout>
 
+                <Layout level='1' style={styles.containerDoisElementos}>
+                    <Input
+                        label="Latitude"
+                        style={styles.input}
+                        placeholder='Latitude'
+                        value={this.props.complement}
+                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                    />
+                    <Input
+                        label="Longitude"
+                        style={styles.input}
+                        placeholder='Longitude'
+                        value={this.props.complement}
+                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                    />
+                </Layout>
+
                 <Button onPress={() => this.props.changeStorage()} style={styles.button} >
                     Salvar
                 </Button>
@@ -151,5 +168,17 @@ const styles = StyleSheet.create({
     },
     marginTop: {
         marginTop: 15
+    },
+    input: {
+        flex: 1,
+        margin: 2,
+    },
+    containerDoisElementos: {
+        alignItems: 'stretch',
+        backgroundColor: 'transparent',
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
+        flexDirection: 'row',
     },
 })

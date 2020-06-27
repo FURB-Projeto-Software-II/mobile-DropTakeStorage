@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { StyleSheet, Image, View } from 'react-native';
-import { Layout, Text, Divider } from '@ui-kitten/components';
+import { Layout, Text, Button, Divider } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import { showOrderItem } from './actions'
 
@@ -52,13 +53,18 @@ class OrderInfo extends Component {
                 
                 <Divider style={styles.divider}/>
 
-                <Layout style={styles.qrcodebox}>
+                {/* <Layout style={styles.qrcodebox}>
                     <Text category="label" style={styles.title}>QRCODE para retirada do produto</Text>
                     <Image style={styles.qrcode} source={{
                         uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
                     }}/>
-                </Layout>
+                </Layout> */}
 
+                <Layout style={styles.container}>
+                    <Button style={styles.button} onPress={() => Actions.readerQRCode()}>
+                        Confirmar entrega
+                    </Button>
+               </Layout>
             </Layout>
         )
 
@@ -92,5 +98,13 @@ const styles = StyleSheet.create({
     },
     qrcodebox: {
         alignItems: 'center',
-    }
+    },
+    button: {
+        marginTop: 15,
+        marginLeft: 15,
+        marginRight: 15,
+        marginBottom: 15,
+        backgroundColor: '#501380',
+        borderColor: 'transparent'
+    },
 });
