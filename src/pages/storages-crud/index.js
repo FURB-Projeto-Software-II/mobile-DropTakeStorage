@@ -4,13 +4,33 @@ import { Layout, Input, Divider, Select, Button, SelectItem, Text, CheckBox } fr
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
+import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 
-import { zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage } from './actions'
+import { zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage, longitudeChange, latitudeChange } from './actions'
 
 class StorageCrud extends Component {
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.showStorage();
+
+        await this.loadCurrentLocation();
+
+    }
+
+    async loadCurrentLocation() {
+        const { granted } = await requestPermissionsAsync();
+    
+        if (granted) {
+            
+            const { coords } = await getCurrentPositionAsync({
+                enableHighAccuracy: true,
+            });
+    
+            const { latitude, longitude } = coords;
+            
+            this.props.longitudeChange(longitude);
+            this.props.latitudeChange(latitude);
+        }
     }
 
     render() {
@@ -108,21 +128,36 @@ class StorageCrud extends Component {
                         label="Latitude"
                         style={styles.input}
                         placeholder='Latitude'
-                        value={this.props.complement}
-                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                        value={this.props.latitude}
+                        onChangeText={text => this.props.latitudeChange(text)}
                     />
                     <Input
                         label="Longitude"
                         style={styles.input}
                         placeholder='Longitude'
-                        value={this.props.complement}
-                        onChangeText={text => this.props.confirmarSenhaChange(text)}
+                        value={this.props.longitude}
+                        onChangeText={text => this.props.longitudeChange(text)}
                     />
                 </Layout>
 
-                <Button onPress={() => this.props.changeStorage()} style={styles.button} >
-                    Salvar
-                </Button>
+                { this.props.street && this.props.city 
+                    ? (
+                        <>
+                            <Button onPress={() => this.props.changeStorage(false)} style={styles.button} >
+                                Salvar
+                            </Button>
+                        </>
+                    )
+                    : (
+                        <>
+                            <Button onPress={() => this.props.changeStorage(true)} style={styles.button} >
+                                Cadastrar
+                            </Button>
+                        </>
+                    )
+
+                }
+                
             </Layout>
         )
     }
@@ -138,10 +173,25 @@ const mapStateToProps = state => ({
     street: state.storageCrud.street,
     number: state.storageCrud.number,
     complement: state.storageCrud.complement,
+    latitude: state.storageCrud.latitude,
+    longitude: state.storageCrud.longitude,
     _id: state.storageCrud._id
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+    zipcodeChange,
+    estadoChange,
+    cidadeChange,
+    neighborhoodChange,
+    streetChange,
+    numberChange,
+    complementChange,
+    executeCadastrar,
+    showStorage,
+    changeStorage,
+    longitudeChange,
+    latitudeChange
+}, dispatch)
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(StorageCrud)

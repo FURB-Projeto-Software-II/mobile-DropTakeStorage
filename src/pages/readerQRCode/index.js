@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-import { visibleModalChange, idOrderChange } from './actions'
+import { visibleModalChange, idOrderChange, setDeliveryOrder } from './actions'
 
 class ReaderQRCode extends Component{
 
     render() {
 
-        const { visibleConfirm, visibleModalChange } = this.props;
+        const { visibleConfirm, visibleModalChange, idOrder } = this.props;
 
         const handleBarCodeScanned = ({ type, data }) => {
             visibleModalChange(true);
@@ -35,7 +35,7 @@ class ReaderQRCode extends Component{
                     onBackdropPress={() => visibleModalChange(false)}>
                     <Card disabled={true}>
                         <Text>Deseja realmente entregar o pedido ?</Text>
-                        <Button style={styles.button}>
+                        <Button style={styles.button} onPress={() => this.props.setDeliveryOrder(idOrder)}>
                             Entregar
                         </Button>
                     </Card>
@@ -50,7 +50,7 @@ const mapStateToProps = state => ({
     idOrder: state.readerQRCode.idOrder
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ visibleModalChange, idOrderChange }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ visibleModalChange, idOrderChange, setDeliveryOrder }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReaderQRCode);
 

@@ -40,11 +40,19 @@ class Storages extends Component {
                         renderItem={this.renderItem}
                     />
                </Layout>
-               {/* <Layout style={styles.newAddressBox}>
-                    <Button style={styles.button} onPress={() => Actions.storagesCrud()}>
-                        NOVO ENDEREÇO
-                    </Button>
-               </Layout> */}
+               { list 
+                    ? (
+                        <>
+                            <Layout style={styles.newAddressBox}>
+                                <Button style={styles.button} onPress={() => Actions.storagesCrud()}>
+                                    NOVO ENDEREÇO
+                                </Button>
+                            </Layout>
+                        </>
+                    )
+                    : <></> 
+               }
+               
            </Layout> 
         )
     }

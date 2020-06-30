@@ -41,6 +41,16 @@ export const executeCadastrar = event => ({
     type: 'EXECUTE_CADASTRAR'
 })
 
+export const latitudeChange = value => ({
+    type: 'LATITUDE_CHANGE',
+    payload: value
+})
+
+export const longitudeChange = value => ({
+    type: 'LONGITUDE_CHANGE',
+    payload: value
+})
+
 export const showStorage = () => {
     return (dispatch, getState) =>{
         const configApi = {
@@ -52,18 +62,22 @@ export const showStorage = () => {
         api.get('/user/adress', configApi)
         .then(result => {
 
-            return dispatch({
-                type: 'STORAGE_ITEM_LOAD',
-                payload: result.data[0]
-            });
+            if (result.data) {   
+                return dispatch({
+                    type: 'STORAGE_ITEM_LOAD',
+                    payload: result.data[0]
+                });   
+            }
         })
         .catch(error => {
-            Alert.alert(error.response);
+            if (error.response) {
+                Alert.alert(error.response);
+            }
         });
     }
 }
 
-export const changeStorage = () => {
+export const changeStorage = (createStorage) => {
     return (dispatch, getState) => {
         const configApi = {
             headers:{
@@ -81,36 +95,57 @@ export const changeStorage = () => {
         const street = getState().storageCrud.street;
         const number = getState().storageCrud.number;
         const complement = getState().storageCrud.complement;
+        const longitude = getState().storageCrud.longitude;
+        const latitude = getState().storageCrud.latitude;
 
-        console.log(zipcode)
-        console.log(state)
-        console.log(city)
-        console.log(neighborhood)
-        console.log(street)
-        console.log(number)
-        console.log(complement)
-
-        api.put(`/user/adress/${_id}`, {
-            zipcode,
-            state,
-            city,
-            neighborhood,
-            street,
-            number,
-            complement    
-        },configApi)
-        .then(result => {
-
-            Actions.storages();
-            console.log(result.data);
-            return dispatch({
-                type: 'STORAGE_ITEM_LOAD',
-                payload: result.data
+        if (createStorage) {
+            api.post(`/user/adress`, {
+                zipcode,
+                state,
+                city,
+                neighborhood,
+                street,
+                number,
+                complement,
+                longitude,
+                latitude   
+            },configApi)
+            .then(result => {
+    
+                Actions.storages();
+                console.log(result.data);
+                return dispatch({
+                    type: 'STORAGE_ITEM_LOAD',
+                    payload: result.data
+                });
+            })
+            .catch(error => {
+                Alert.alert(error);
             });
-        })
-        .catch(error => {
-            Alert.alert(error);
-        });
-
+        } else {
+            api.put(`/user/adress/${_id}`, {
+                zipcode,
+                state,
+                city,
+                neighborhood,
+                street,
+                number,
+                complement,
+                longitude,
+                latitude   
+            },configApi)
+            .then(result => {
+    
+                Actions.storages();
+                console.log(result.data);
+                return dispatch({
+                    type: 'STORAGE_ITEM_LOAD',
+                    payload: result.data
+                });
+            })
+            .catch(error => {
+                Alert.alert(error);
+            });
+        }
     }
 }

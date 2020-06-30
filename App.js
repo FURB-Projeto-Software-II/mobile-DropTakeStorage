@@ -120,7 +120,7 @@ export default function App() {
           <Scene 
             key="readerQRCode"
             component={ReaderQRCode}
-            title="Informções do pedido"
+            title="Informações do pedido"
             hideTabBar={true}
             {...sceneConfig}
             showLabel={false}

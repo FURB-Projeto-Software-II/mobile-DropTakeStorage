@@ -26,9 +26,6 @@ export const executeLogin = () => {
         .then(async result => {
             if (result.data.auth) {
                 
-                console.log('------------------------------------------------- TOKEN')
-                console.log(result.data.token)
-                
                 dispatch({
                     type: 'EXECUTE_LOGIN',
                     payload: result.data.token

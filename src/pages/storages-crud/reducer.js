@@ -1,12 +1,14 @@
 const INITIAL_STATE = {
-    zipcode: '',
-    state: '',
-    city: '',
-    neighborhood: '',
-    street: '',
-    number: '',
-    complement: '',
-    _id: ''
+    zipcode: undefined,
+    state: undefined,
+    city: undefined,
+    neighborhood: undefined,
+    street: undefined,
+    number: undefined,
+    complement: undefined,
+    longitude: undefined,
+    latitude: undefined,
+    _id: undefined
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,8 +36,14 @@ export default (state = INITIAL_STATE, action) => {
                 street: action.payload.street,
                 number: action.payload.number,
                 complement: action.payload.complement,
+                latitude: action.payload.latitude,
+                longitude: action.payload.longitude,
                 _id: action.payload._id
             }
+        case 'LONGITUDE_CHANGE':
+            return {...state, longitude: action.payload}
+        case 'LATITUDE_CHANGE':
+            return {...state, latitude: action.payload}
         default:
             return state
     }
