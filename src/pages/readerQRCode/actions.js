@@ -12,7 +12,7 @@ export const idOrderChange = idOrder => ({
     payload: idOrder
 });
 
-export const setDeliveryOrder = (idOrder) => {
+export const setDeliveryOrder = () => {
     return (dispatch, getState) =>{
         const configApi = {
             headers:{
@@ -20,15 +20,20 @@ export const setDeliveryOrder = (idOrder) => {
             }
         }
 
-        api.get(`/order/delivered/${idOrder}`, configApi)
-        .then(result => {
+        const idOrder = getState().readerQRCode.idOrder
 
-            Actions.storages();
-        })
-        .catch(error => {
-            if (error.response) {
-                Alert.alert(error.response);
-            }
-        });
+        if (idOrder) {   
+            api.put(`/order/delivered/${idOrder}`, {}, configApi)
+            .then(result => {
+                Actions.storages();
+            })
+            .catch(error => {
+                if (error.response) {
+                    Alert.alert(error.response);
+                }
+            });   
+        } else {
+            Alert.alert('Não é possível realizar a entrega!');
+        }
     }
 }

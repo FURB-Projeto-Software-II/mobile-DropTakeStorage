@@ -28,8 +28,8 @@ class StorageCrud extends Component {
     
             const { latitude, longitude } = coords;
             
-            this.props.longitudeChange(longitude);
-            this.props.latitudeChange(latitude);
+            this.props.longitudeChange(longitude.toString());
+            this.props.latitudeChange(latitude.toString());
         }
     }
 
@@ -129,6 +129,7 @@ class StorageCrud extends Component {
                         style={styles.input}
                         placeholder='Latitude'
                         value={this.props.latitude}
+                        keyboardType={'numeric'}
                         onChangeText={text => this.props.latitudeChange(text)}
                     />
                     <Input
@@ -136,6 +137,7 @@ class StorageCrud extends Component {
                         style={styles.input}
                         placeholder='Longitude'
                         value={this.props.longitude}
+                        keyboardType={'numeric'}
                         onChangeText={text => this.props.longitudeChange(text)}
                     />
                 </Layout>

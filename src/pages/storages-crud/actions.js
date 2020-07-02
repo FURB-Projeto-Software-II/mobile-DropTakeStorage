@@ -95,8 +95,8 @@ export const changeStorage = (createStorage) => {
         const street = getState().storageCrud.street;
         const number = getState().storageCrud.number;
         const complement = getState().storageCrud.complement;
-        const longitude = getState().storageCrud.longitude;
-        const latitude = getState().storageCrud.latitude;
+        const lng = getState().storageCrud.longitude;
+        const lat = getState().storageCrud.latitude;
 
         if (createStorage) {
             api.post(`/user/adress`, {
@@ -107,8 +107,8 @@ export const changeStorage = (createStorage) => {
                 street,
                 number,
                 complement,
-                longitude,
-                latitude   
+                lng,
+                lat   
             },configApi)
             .then(result => {
     
@@ -131,8 +131,8 @@ export const changeStorage = (createStorage) => {
                 street,
                 number,
                 complement,
-                longitude,
-                latitude   
+                lng,
+                lat   
             },configApi)
             .then(result => {
     

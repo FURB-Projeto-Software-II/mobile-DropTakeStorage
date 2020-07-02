@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    email: 'gustavowestarb45@gmail.com',
+    email: 'josue@josue.com',
     password: 'teste',
     token: '',
 }

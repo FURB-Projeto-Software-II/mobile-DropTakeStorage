@@ -60,7 +60,7 @@ export const validateSignup = () => {
 export const executeSignup = () => {
     return (dispatch, getState) => {
         api.post('/auth/storage/register', {
-            nome: getState().signup.nome,
+            name: getState().signup.nome,
             cpf: getState().signup.cpf,
             email: getState().signup.email,
             password: getState().signup.senha

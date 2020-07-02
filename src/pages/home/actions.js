@@ -10,7 +10,7 @@ export const loadOrders = () => {
             }
         }
 
-        api.get('/order/open', configApi)
+        api.get('/order', configApi)
         .then(result => {
 
             return dispatch({

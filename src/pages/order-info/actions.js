@@ -18,10 +18,9 @@ export const showOrderItem = (_id) => {
             }
         })
         .then(result => {
-
-            console.log(result);
-
-            order.adressInfo = result.data;
+            if (result.data) {
+                order.adressInfo = result.data;
+            }
         })
         .catch(error => {
             Alert.alert(error.response.data)

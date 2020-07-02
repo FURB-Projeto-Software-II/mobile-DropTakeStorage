@@ -12,11 +12,13 @@ class ReaderQRCode extends Component{
 
     render() {
 
-        const { visibleConfirm, visibleModalChange, idOrder } = this.props;
+        const { visibleConfirm, visibleModalChange, idOrderChange } = this.props;
 
         const handleBarCodeScanned = ({ type, data }) => {
             visibleModalChange(true);
-            idOrderChange(data);
+            if (data) {
+                idOrderChange(data);
+            }
         };
 
         (async () => {
@@ -35,7 +37,7 @@ class ReaderQRCode extends Component{
                     onBackdropPress={() => visibleModalChange(false)}>
                     <Card disabled={true}>
                         <Text>Deseja realmente entregar o pedido ?</Text>
-                        <Button style={styles.button} onPress={() => this.props.setDeliveryOrder(idOrder)}>
+                        <Button style={styles.button} onPress={() => this.props.setDeliveryOrder()}>
                             Entregar
                         </Button>
                     </Card>

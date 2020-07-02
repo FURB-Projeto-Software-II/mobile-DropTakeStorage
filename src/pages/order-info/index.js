@@ -37,7 +37,7 @@ class OrderInfo extends Component {
 
                 <Text category="label" style={styles.title}>Informações da Entrega</Text>
                 
-                { order.adressInfo == null 
+                { order.adressInfo == undefined
                     ? <Text>Entrega em sua casa: NÀO</Text> 
                     : (
                         <>
