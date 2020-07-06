@@ -40,7 +40,7 @@ class Storages extends Component {
                         renderItem={this.renderItem}
                     />
                </Layout>
-               { list 
+               { list[0] || list.length == 0
                     ? (
                         <>
                             <Layout style={styles.newAddressBox}>
@@ -49,7 +49,7 @@ class Storages extends Component {
                                 </Button>
                             </Layout>
                         </>
-                    )
+                    ) 
                     : <></> 
                }
                

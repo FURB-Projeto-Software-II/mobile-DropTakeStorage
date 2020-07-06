@@ -1,12 +1,43 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native';
-import { Layout, Input, Divider, Select, Button, SelectItem, Text, CheckBox } from '@ui-kitten/components';
+import { Layout, Input, Divider, Select, Button, SelectItem, Text, CheckBox, IndexPath } from '@ui-kitten/components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 
 import { zipcodeChange, estadoChange,  cidadeChange, neighborhoodChange, streetChange, numberChange, complementChange, executeCadastrar, showStorage, changeStorage, longitudeChange, latitudeChange } from './actions'
+import { Item } from 'native-base';
+
+
+const listStates = [
+    { title:'Alagoas', value: 'AL'},
+    { title:'Amapá', value: 'AP'},
+    { title:'Amazonas', value: 'AM'},
+    { title:'Bahia', value: 'BA'},
+    { title:'Ceará', value: 'CE'},
+    { title:'Distrito Federal', value: 'DF'},
+    { title:'Espírito Santo', value: 'ES'},
+    { title:'Goiás', value: 'GO'},
+    { title:'Maranhão', value: 'MA'},
+    { title:'Mato Grosso', value: 'MT'},
+    { title:'Mato Grosso do Sul', value: 'MS'},
+    { title:'Minas Gerais', value: 'MG'},
+    { title:'Paraná', value: 'PR'},
+    { title:'Paraíba', value: 'PB'},
+    { title:'Pará', value: 'PA'},
+    { title:'Pernambuco', value: 'PE'},
+    { title:'Piauí', value: 'PI'},
+    { title:'Rio de Janeiro', value: 'RJ'},
+    { title:'Rio Grande do Norte', value: 'RN'},
+    { title:'Rio Grande do Sul', value: 'RS'},
+    { title:'Rondônia', value: 'RO'},
+    { title:'Roraima', value: 'RR'},
+    { title:'Santa Catarina', value: 'SC'},
+    { title:'Sergipe', value: 'SE'},
+    { title:'São Paulo', value: 'SP'},
+    { title:'Tocantins', value: 'TO'},
+]
 
 class StorageCrud extends Component {
 
@@ -35,6 +66,9 @@ class StorageCrud extends Component {
 
     render() {
 
+        const index = listStates.findIndex(x => x.title == this.props.state)
+        const selectIndex = new IndexPath(index);
+
         return (
             <Layout>
                 <Layout style={[styles.layout, styles.marginTop]}>
@@ -47,35 +81,42 @@ class StorageCrud extends Component {
                 </Layout>
 
                 <Layout style={styles.layout}>
-                    <Select selectedIndex={this.props.state} onSelect={title => this.props.estadoChange(title)} label="Estado">
-                    <SelectItem title='Acre' value="AC"/>
-                        <SelectItem title='Alagoas' value="AL"/>
-                        <SelectItem title='Amapá' value="AP"/>
-                        <SelectItem title='Amazonas' value="AM"/>
-                        <SelectItem title='Bahia' value="BA"/>
-                        <SelectItem title='Ceará' value="CE"/>
-                        <SelectItem title='Distrito Federal' value="DF"/>
-                        <SelectItem title='Espírito Santo' value="ES"/>
-                        <SelectItem title='Goiás' value="GO"/>
-                        <SelectItem title='Maranhão' value="MA"/>
-                        <SelectItem title='Mato Grosso' value="MT"/>
-                        <SelectItem title='Mato Grosso do Sul' value="MS"/>
-                        <SelectItem title='Minas Gerais' value="MG"/>
-                        <SelectItem title='Paraná' value="PR"/>
-                        <SelectItem title='Paraíba' value="PB"/>
-                        <SelectItem title='Pará' value="PA"/>
-                        <SelectItem title='Pernambuco' value="PE"/>
-                        <SelectItem title='Piauí' value="PI"/>
-                        <SelectItem title='Rio de Janeiro' value="RJ"/>
-                        <SelectItem title='Rio Grande do Norte' value="RN"/>
-                        <SelectItem title='Rio Grande do Sul' value="RS"/>
-                        <SelectItem title='Rondônia' value="RO"/>
-                        <SelectItem title='Roraima' value="RR"/>
-                        <SelectItem title='Santa Catarina' value="SC"/>
-                        <SelectItem title='Sergipe' value="SE"/>
-                        <SelectItem title='São Paulo' value="SP"/>
-                        <SelectItem title='Tocantins' value="TO"/>
-                    </Select>
+                    {this.props.state
+                        ? (
+                            <>            
+                                <Select selectedIndex={selectIndex} onSelect={item => this.props.estadoChange(item.row)} label="Estado">
+                                    <SelectItem title='Alagoas'/>
+                                    <SelectItem title='Amapá'/>
+                                    <SelectItem title='Amazonas' />
+                                    <SelectItem title='Bahia' />
+                                    <SelectItem title='Ceará' />
+                                    <SelectItem title='Distrito Federal' />
+                                    <SelectItem title='Espírito Santo' />
+                                    <SelectItem title='Goiás' />
+                                    <SelectItem title='Maranhão' />
+                                    <SelectItem title='Mato Grosso' />
+                                    <SelectItem title='Mato Grosso do Sul' />
+                                    <SelectItem title='Minas Gerais' />
+                                    <SelectItem title='Paraná' />
+                                    <SelectItem title='Paraíba' />
+                                    <SelectItem title='Pará' />
+                                    <SelectItem title='Pernambuco' />
+                                    <SelectItem title='Piauí' />
+                                    <SelectItem title='Rio de Janeiro' />
+                                    <SelectItem title='Rio Grande do Norte' />
+                                    <SelectItem title='Rio Grande do Sul' />
+                                    <SelectItem title='Rondônia' />
+                                    <SelectItem title='Roraima' />
+                                    <SelectItem title='Santa Catarina' />
+                                    <SelectItem title='Sergipe' />
+                                    <SelectItem title='São Paulo' />
+                                    <SelectItem title='Tocantins' />
+                                </Select>
+                            </>
+                        )
+                        : <></>
+
+                    }
                 </Layout>
 
                 <Layout style={styles.layout}>

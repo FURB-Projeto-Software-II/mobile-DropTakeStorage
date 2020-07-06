@@ -19,7 +19,7 @@ export const loadOrders = () => {
             });
         })
         .catch(error => {
-            Alert.alert('aaaaa')
+            Alert.alert(error.response.data)
         });
     }
 }

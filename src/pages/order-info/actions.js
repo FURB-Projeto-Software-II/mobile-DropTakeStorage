@@ -1,13 +1,11 @@
 import api from '../../server/api';
 import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export const showOrderItem = (_id) => {
     return async (dispatch, getState) =>{
 
         const order = getState().home.list.find(x => x._id == _id);
-
-        console.log(_id);
-        console.log(order);
 
         await api.get(`user/adress/${order.id_adress_delivery}`, {
             headers:{
@@ -19,7 +17,7 @@ export const showOrderItem = (_id) => {
         })
         .then(result => {
             if (result.data) {
-                order.adressInfo = result.data;
+                order.adressInfo = result   .data;
             }
         })
         .catch(error => {
@@ -40,3 +38,28 @@ export const showOrderItem = (_id) => {
         // })
     }
 }
+
+export const confirmReceived = () => {
+    return (dispatch, getState) =>{
+        const configApi = {
+            headers:{
+                authorization: getState().login.token,
+            }
+        }
+
+        const orderID = getState().orderInfo.order._id;
+        if (orderID) {
+            api.put(`/order/received/${orderID}`, {}, configApi)
+            .then(result => {
+                if (result.data) {
+                    Alert.alert('Recebimento do pedido confirmado.');
+                    Actions.orderInfo();
+                    Actions.refresh({key: Math.random()});
+                }
+            })
+            .catch(error => {
+                Alert.alert('Não foi possível confirmar o recebimento do pedido.')
+            });
+        }
+    }
+} 

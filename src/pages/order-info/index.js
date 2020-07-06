@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux'
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-import { showOrderItem } from './actions'
+import { showOrderItem, confirmReceived } from './actions'
 
 class OrderInfo extends Component {
 
@@ -28,7 +28,7 @@ class OrderInfo extends Component {
                 <Divider style={styles.divider}/>
 
                 <Text category="label" style={styles.title}>Informações do Pagamento</Text>
-                <Text>Valor: R$18,00</Text>
+                <Text>Valor: R$ {order.price}</Text>
                 <Text>Forma Pagamento: Cartão</Text>
 
                 <Divider style={styles.divider}/>
@@ -60,11 +60,32 @@ class OrderInfo extends Component {
                     }}/>
                 </Layout> */}
 
-                <Layout style={styles.container}>
-                    <Button style={styles.button} onPress={() => Actions.readerQRCode()}>
-                        Confirmar entrega
-                    </Button>
-               </Layout>
+                { order.status == 0
+                    ? (  
+                        <>
+                            <Layout style={styles.container}>
+                                <Button style={styles.button} onPress={() => this.props.confirmReceived()}>
+                                    Confirmar recebimento
+                                </Button>
+                            </Layout>
+                        </>
+                    )
+                    : <></>                   
+                }
+                { order.status == 1
+                    ? (
+                        <>
+                            <Layout style={styles.container}>
+                                <Button style={styles.button} onPress={() => Actions.readerQRCode()}>
+                                    Confirmar entrega
+                                </Button>
+                            </Layout>
+                        </> 
+                    )
+                    : <></>
+                }
+
+                
             </Layout>
         )
 
@@ -76,7 +97,7 @@ const mapStateToProps = state => ({
     order: state.orderInfo.order
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({ showOrderItem }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ showOrderItem, confirmReceived }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderInfo)
 
