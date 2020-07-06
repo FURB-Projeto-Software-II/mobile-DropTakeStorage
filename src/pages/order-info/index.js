@@ -38,7 +38,7 @@ class OrderInfo extends Component {
                 <Text category="label" style={styles.title}>Informações da Entrega</Text>
                 
                 { order.adressInfo == undefined
-                    ? <Text>Entrega em sua casa: NÀO</Text> 
+                    ? <Text>Entrega em sua casa: NÃO</Text> 
                     : (
                         <>
                             <Text>Entrega em sua casa: SIM</Text>
@@ -59,6 +59,12 @@ class OrderInfo extends Component {
                         uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png',
                     }}/>
                 </Layout> */}
+
+                <Text style={[styles.orderCardStatus, order.status == 0 ? styles.status0 : order.status == 1 ? styles.status1 : styles.status2]}>
+                    Status: {`${order.status == 0 ? `Pedido em entrega` : order.status == 1 ? `Pedido pronto para retirada` : `Pedido retirado` }`}
+                </Text>
+
+                <Divider style={styles.divider}/>
 
                 { order.status == 0
                     ? (  
@@ -84,7 +90,6 @@ class OrderInfo extends Component {
                     )
                     : <></>
                 }
-
                 
             </Layout>
         )
@@ -127,5 +132,18 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: '#501380',
         borderColor: 'transparent'
+    },
+    orderCardStatus: {
+        marginTop: 3,
+        fontWeight: 'bold',
+    },
+    status0: {
+        color: '#d6b41c'
+    },
+    status1: {
+        color: '#0091bd',
+    },
+    status2: {
+        color: '#36c900'
     },
 });

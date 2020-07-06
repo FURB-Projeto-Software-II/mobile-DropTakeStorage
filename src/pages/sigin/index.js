@@ -51,6 +51,7 @@ class SignUp extends Component {
                         label="Senha"
                         placeholder='Senha'
                         value={senha}
+                        secureTextEntry={true}
                         type="password"
                         onChangeText={text => this.props.senhaChange(text)}
                     />
@@ -60,6 +61,7 @@ class SignUp extends Component {
                         label="Confirme a Senha"
                         placeholder='Confirmar a Senha'
                         value={confirmarSenha}
+                        secureTextEntry={true}
                         type="password"
                         onChangeText={text => this.props.confirmarSenhaChange(text)}
                     />

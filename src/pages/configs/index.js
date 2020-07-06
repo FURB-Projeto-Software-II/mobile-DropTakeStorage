@@ -17,6 +17,7 @@ class Configs extends Component {
             <Layout style={styles.container}>
                 <Menu>
                     <MenuItem title='Endereços' onPress={() => Actions.storages()}/>
+                    <MenuItem title='Pagamentos' />
                 </Menu>
             </Layout>
         )

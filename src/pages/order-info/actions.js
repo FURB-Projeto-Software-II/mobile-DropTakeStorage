@@ -53,7 +53,8 @@ export const confirmReceived = () => {
             .then(result => {
                 if (result.data) {
                     Alert.alert('Recebimento do pedido confirmado.');
-                    Actions.orderInfo();
+                    Actions.refresh({key: Math.random()});
+                    Actions.home();
                     Actions.refresh({key: Math.random()});
                 }
             })

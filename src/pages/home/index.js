@@ -31,7 +31,7 @@ class Home extends Component {
         const { list } = this.props;
 
         return(
-            <Layout style={styles.containerGeral}>
+            <Layout>
                 <List
                     style={styles.container}
                     data={list}
@@ -55,8 +55,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Home)
 const styles = StyleSheet.create({
     container: {
       maxHeight: '100%',
-    },
-    containerGeral:{
-        paddingTop: 25,
     },
 });

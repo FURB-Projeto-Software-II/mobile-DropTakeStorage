@@ -31,10 +31,10 @@ class Storages extends Component {
         const { list } = this.props;
 
         return (
-           <Layout>
-               <Layout style={styles.listAddressBox}>
+           <Layout style={styles.container}>
+               <Layout >
                     <List
-                        style={styles.container}
+                        style={styles.listAddressBox}
                         data={list}
                         ItemSeparatorComponent={Divider}
                         renderItem={this.renderItem}

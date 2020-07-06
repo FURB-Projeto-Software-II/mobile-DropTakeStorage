@@ -25,7 +25,9 @@ export const setDeliveryOrder = () => {
         if (idOrder) {   
             api.put(`/order/delivered/${idOrder}`, {}, configApi)
             .then(result => {
-                Actions.storages();
+                Alert.alert('Pedido entregue!');
+                Actions.refresh({key: Math.random()});
+                Actions.home();
                 Actions.refresh({key: Math.random()});
             })
             .catch(error => {
